@@ -1,0 +1,6 @@
+.DS_Store
+nahled.psd
+
+# Design/inspiration references not used by the live site
+assets/img/ing-*.png
+assets/img/inspirace_*.png
