@@ -621,7 +621,13 @@ p{ margin: 0 0 1em; }
 @media (max-width: 860px){
   .main-nav{
     position: fixed;
-    inset: var(--header-h) 0 0 0;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    height: calc(100vh - var(--header-h));
+    height: calc(100dvh - var(--header-h));
+    z-index: 90;
+    overflow-y: auto;
     background: #fff;
     padding: 24px;
     transform: translateY(-8px);
@@ -654,6 +660,7 @@ p{ margin: 0 0 1em; }
   .hero-visual{ margin-top: 28px; }
   .food-gallery{ grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .food-item:nth-child(odd){ margin-top: 0; }
+  .food-item:nth-child(n+5){ display: none; }
   .phone-shot{ width: 260px; }
   .story-inline-img{ width: 200px; }
   .hero-stat{ padding: 0 20px; }
