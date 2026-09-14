@@ -7,3 +7,7 @@ assets/img/inspirace_*.png
 
 # Original PNGs superseded by compressed assets/img/jidlo_*.webp
 assets/img/jidlo_*.png
+
+# Dropped from the food gallery, no longer referenced
+assets/img/jidlo_5.webp
+assets/img/jidlo_10.webp
