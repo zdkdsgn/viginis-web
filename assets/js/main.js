@@ -49,32 +49,56 @@
     }
   }
 
-  // AI "scan" flourish on hero plates: plays once in view, replays on hover/tap
-  document.querySelectorAll(".ai-tag-visual").forEach((aiVisual) => {
-    const playScan = () => {
-      aiVisual.classList.remove("is-scanning");
-      void aiVisual.offsetWidth; // force reflow so the animation restarts
-      aiVisual.classList.add("is-scanning");
-    };
-    if ("IntersectionObserver" in window) {
-      const scanObserver = new IntersectionObserver(
-        (entries, obs) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              playScan();
-              obs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.4 }
-      );
-      scanObserver.observe(aiVisual);
-    } else {
-      playScan();
-    }
-    aiVisual.addEventListener("mouseenter", playScan);
-    aiVisual.addEventListener("touchstart", playScan, { passive: true });
-  });
+  // AI "scan" flourish on hero plates: waits for the first scroll (not page load)
+  // to auto-play once in view, replays anytime after on hover/tap
+  const scanVisuals = document.querySelectorAll(".ai-tag-visual");
+  if (scanVisuals.length) {
+    let hasScrolledOnce = false;
+    const tryAutoPlayFns = [];
+
+    scanVisuals.forEach((aiVisual) => {
+      const playScan = () => {
+        aiVisual.classList.remove("is-scanning");
+        void aiVisual.offsetWidth; // force reflow so the animation restarts
+        aiVisual.classList.add("is-scanning");
+      };
+      let inView = false;
+      let autoPlayed = false;
+      const tryAutoPlay = () => {
+        if (autoPlayed || !hasScrolledOnce || !inView) return;
+        autoPlayed = true;
+        playScan();
+      };
+      tryAutoPlayFns.push(tryAutoPlay);
+
+      if ("IntersectionObserver" in window) {
+        const scanObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              inView = entry.isIntersecting;
+              if (inView) tryAutoPlay();
+            });
+          },
+          { threshold: 0.4 }
+        );
+        scanObserver.observe(aiVisual);
+      } else {
+        inView = true;
+      }
+
+      aiVisual.addEventListener("mouseenter", playScan);
+      aiVisual.addEventListener("touchstart", playScan, { passive: true });
+    });
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        hasScrolledOnce = true;
+        tryAutoPlayFns.forEach((fn) => fn());
+      },
+      { passive: true, once: true }
+    );
+  }
 
   // Scroll-driven story ("Jak to funguje"): sticky phone swaps to match
   // whichever block's heading is currently closest to the sticky phone's
