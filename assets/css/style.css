@@ -402,6 +402,7 @@ p{ margin: 0 0 1em; }
 }
 .story-img.is-active{ opacity: 1; }
 
+.ai-tag-visual{ pointer-events: auto; cursor: pointer; }
 .ai-tag-visual img{ width: 100%; height: auto; display: block; }
 .story-inline-img.ai-tag-visual{ position: relative; }
 .ai-tag{
@@ -421,13 +422,13 @@ p{ margin: 0 0 1em; }
   transform: translateY(6px) scale(.94);
   transition: opacity .4s ease, transform .4s ease;
 }
-.hero-visual.is-visible .ai-tag{ opacity: 1; transform: translateY(0) scale(1); }
-.hero-visual.is-visible .ai-tag:nth-of-type(2){ transition-delay: .3s; }
-.hero-visual.is-visible .ai-tag:nth-of-type(3){ transition-delay: .5s; }
-.hero-visual.is-visible .ai-tag:nth-of-type(4){ transition-delay: .7s; }
-.hero-visual.is-visible .ai-tag:nth-of-type(5){ transition-delay: .9s; }
+.ai-tag-visual.is-scanning .ai-tag{ opacity: 1; transform: translateY(0) scale(1); }
+.ai-tag-visual.is-scanning .ai-tag:nth-of-type(2){ transition-delay: .3s; }
+.ai-tag-visual.is-scanning .ai-tag:nth-of-type(3){ transition-delay: .5s; }
+.ai-tag-visual.is-scanning .ai-tag:nth-of-type(4){ transition-delay: .7s; }
+.ai-tag-visual.is-scanning .ai-tag:nth-of-type(5){ transition-delay: .9s; }
 
-/* AI "scanning" sweep across the plate before the tags land */
+/* AI "scanning" sweep across the plate before the tags land — replays on hover/tap */
 .ai-scan-line{
   position: absolute;
   left: 4%;
@@ -440,7 +441,7 @@ p{ margin: 0 0 1em; }
   opacity: 0;
   pointer-events: none;
 }
-.hero-visual.is-visible .ai-scan-line{ animation: ai-scan 1s cubic-bezier(.4,0,.2,1) .1s 1; }
+.ai-tag-visual.is-scanning .ai-scan-line{ animation: ai-scan 1s cubic-bezier(.4,0,.2,1) .1s 1; }
 @keyframes ai-scan{
   0%{ opacity: 0; top: 4%; }
   12%{ opacity: 1; }
