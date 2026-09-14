@@ -141,16 +141,6 @@ p{ margin: 0 0 1em; }
 .main-nav a:hover{ color: var(--brand-700); }
 
 .header-actions{ display: flex; align-items: center; gap: 12px; }
-.lang-toggle{
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: var(--muted-bg);
-  color: var(--ink-muted);
-  font-weight: 600;
-  font-size: .7rem;
-  cursor: pointer;
-}
 .nav-toggle{
   display: none;
   width: 40px; height: 40px;
@@ -427,6 +417,35 @@ p{ margin: 0 0 1em; }
   box-shadow: var(--shadow-sm);
   white-space: nowrap;
   pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px) scale(.94);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.hero-visual.is-visible .ai-tag{ opacity: 1; transform: translateY(0) scale(1); }
+.hero-visual.is-visible .ai-tag:nth-of-type(2){ transition-delay: .3s; }
+.hero-visual.is-visible .ai-tag:nth-of-type(3){ transition-delay: .5s; }
+.hero-visual.is-visible .ai-tag:nth-of-type(4){ transition-delay: .7s; }
+.hero-visual.is-visible .ai-tag:nth-of-type(5){ transition-delay: .9s; }
+
+/* AI "scanning" sweep across the plate before the tags land */
+.ai-scan-line{
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 4%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--brand-light) 15%, var(--brand) 50%, var(--brand-light) 85%, transparent);
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px var(--brand));
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-visual.is-visible .ai-scan-line{ animation: ai-scan 1s cubic-bezier(.4,0,.2,1) .1s 1; }
+@keyframes ai-scan{
+  0%{ opacity: 0; top: 4%; }
+  12%{ opacity: 1; }
+  88%{ opacity: 1; }
+  100%{ opacity: 0; top: 94%; }
 }
 
 .story-text{ display: flex; flex-direction: column; }
@@ -511,17 +530,43 @@ p{ margin: 0 0 1em; }
 /* ---------- app download CTA ---------- */
 .cta-compact-section{ padding: 56px 0; }
 .cta-download{
-  max-width: 560px;
+  max-width: 680px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  text-align: left;
   background: var(--brand-tint);
   border-radius: var(--radius-lg);
   padding: 48px 40px;
 }
+.cta-download-main{ flex: 1; min-width: 0; }
 .cta-download-icon{ display: block; font-size: 2.6rem; line-height: 1; margin-bottom: 16px; }
 .cta-download h3{ font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; margin-bottom: 10px; color: var(--ink); }
 .cta-download p{ font-size: .98rem; color: var(--ink-muted); margin: 0 0 26px; }
 .cta-download .btn-store{ color: #fff; text-decoration: none; }
+.cta-download-qr{
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.cta-download-qr img{
+  width: 104px;
+  height: 104px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.cta-download-qr span{
+  font-size: .76rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink-muted);
+  text-align: center;
+}
 
 /* ---------- about / team ---------- */
 .about-copy{ max-width: 640px; margin-bottom: 32px; }
@@ -667,6 +712,10 @@ p{ margin: 0 0 1em; }
   .story-block{ min-height: 0; padding-top: 0; opacity: 1; padding-bottom: 44px; }
   .story-block:last-child{ padding-bottom: 0; }
   .story-inline-img{ display: block; width: 220px; margin: 0 auto 24px; filter: drop-shadow(0 20px 36px rgba(0,0,0,.14)); }
+
+  /* QR code targets someone continuing on their phone — redundant once you're already on one */
+  .cta-download{ text-align: center; }
+  .cta-download-qr{ display: none; }
 }
 
 @media (max-width: 560px){
