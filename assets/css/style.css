@@ -615,7 +615,9 @@ p{ margin: 0 0 1em; }
 /* ---------- responsive ---------- */
 @media (max-width: 1024px){
   .bento-grid{ grid-template-columns: repeat(2, 1fr); }
-  .food-gallery{ grid-template-columns: repeat(4, 1fr); }
+  .hero-food{ display: none; }
+  .food-gallery{ grid-template-columns: repeat(3, 1fr); }
+  .food-item:nth-child(n+7){ display: none; }
 }
 
 @media (max-width: 860px){
