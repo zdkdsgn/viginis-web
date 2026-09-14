@@ -17,9 +17,8 @@
     });
   }
 
-  // AI "scan" flourish on the hero plate: plays once in view, replays on hover/tap
-  const aiVisual = document.querySelector(".ai-tag-visual");
-  if (aiVisual) {
+  // AI "scan" flourish on hero plates: plays once in view, replays on hover/tap
+  document.querySelectorAll(".ai-tag-visual").forEach((aiVisual) => {
     const playScan = () => {
       aiVisual.classList.remove("is-scanning");
       void aiVisual.offsetWidth; // force reflow so the animation restarts
@@ -43,7 +42,7 @@
     }
     aiVisual.addEventListener("mouseenter", playScan);
     aiVisual.addEventListener("touchstart", playScan, { passive: true });
-  }
+  });
 
   // Scroll-driven story ("Jak to funguje"): sticky phone swaps to match
   // whichever block's heading is currently closest to the sticky phone's
