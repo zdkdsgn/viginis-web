@@ -17,6 +17,38 @@
     });
   }
 
+  // Soft green glow that follows the cursor — real mouse pointers only
+  const cursorGlow = document.getElementById("cursorGlow");
+  if (cursorGlow) {
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (canHover && !reduceMotion) {
+      let glowX = 0;
+      let glowY = 0;
+      let glowTicking = false;
+      const moveGlow = () => {
+        glowTicking = false;
+        cursorGlow.style.transform = `translate(${glowX - 300}px, ${glowY - 300}px)`;
+      };
+      window.addEventListener(
+        "mousemove",
+        (e) => {
+          glowX = e.clientX;
+          glowY = e.clientY;
+          cursorGlow.classList.add("is-active");
+          if (!glowTicking) {
+            glowTicking = true;
+            requestAnimationFrame(moveGlow);
+          }
+        },
+        { passive: true }
+      );
+      document.addEventListener("mouseleave", () => cursorGlow.classList.remove("is-active"));
+    } else {
+      cursorGlow.remove();
+    }
+  }
+
   // AI "scan" flourish on hero plates: plays once in view, replays on hover/tap
   document.querySelectorAll(".ai-tag-visual").forEach((aiVisual) => {
     const playScan = () => {
