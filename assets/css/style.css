@@ -53,7 +53,9 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* soft green glow that follows the cursor — desktop pointers only, see main.js */
+/* soft green glow that follows the cursor — desktop pointers only, see main.js.
+   Sits at z-index:0 (with cards/buttons/photos lifted to z-index:1+ below)
+   so it shows over plain section backgrounds but tucks behind real content. */
 .cursor-glow{
   position: fixed;
   top: 0;
@@ -63,7 +65,7 @@ body{
   border-radius: 50%;
   background: radial-gradient(circle, rgba(62,166,54,.09), rgba(62,166,54,0) 70%);
   pointer-events: none;
-  z-index: 9999;
+  z-index: 0;
   opacity: 0;
   transition: opacity .4s ease;
   will-change: transform;
@@ -99,6 +101,8 @@ p{ margin: 0 0 1em; }
 
 /* ---------- buttons ---------- */
 .btn{
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -223,6 +227,8 @@ p{ margin: 0 0 1em; }
 }
 .hero-phone-wrap{ position: relative; z-index: 2; flex-shrink: 0; }
 .phone-shot{
+  position: relative;
+  z-index: 1;
   width: 380px;
   height: auto;
   filter: drop-shadow(0 30px 50px rgba(0,0,0,.16));
@@ -289,6 +295,7 @@ p{ margin: 0 0 1em; }
 }
 .bento-card{
   position: relative;
+  z-index: 1;
   overflow: hidden;
   background: var(--muted-bg);
   border-radius: var(--radius-lg);
@@ -344,6 +351,8 @@ p{ margin: 0 0 1em; }
   margin: 0 auto;
 }
 .food-item{
+  position: relative;
+  z-index: 1;
   margin: 0;
   display: flex;
   align-items: center;
@@ -501,6 +510,8 @@ p{ margin: 0 0 1em; }
 }
 .b2b-carousel::-webkit-scrollbar{ display: none; }
 .b2b-carousel-card{
+  position: relative;
+  z-index: 1;
   scroll-snap-align: start;
   flex: 0 0 clamp(220px, 25vw, 270px);
   background: var(--surface);
@@ -536,6 +547,8 @@ p{ margin: 0 0 1em; }
 /* ---------- shared carousel nav (Pro firmy + Tým) ---------- */
 .carousel-nav{ display: flex; justify-content: flex-end; gap: 10px; }
 .carousel-btn{
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -554,6 +567,8 @@ p{ margin: 0 0 1em; }
 /* ---------- app download CTA ---------- */
 .cta-compact-section{ padding: 56px 0; }
 .cta-download{
+  position: relative;
+  z-index: 1;
   max-width: 680px;
   margin: 0 auto;
   display: flex;
@@ -609,6 +624,8 @@ p{ margin: 0 0 1em; }
 }
 .team-carousel::-webkit-scrollbar{ display: none; }
 .team-card{
+  position: relative;
+  z-index: 1;
   scroll-snap-align: start;
   flex: 0 0 clamp(150px, 16vw, 190px);
   background: var(--muted-bg);
