@@ -199,15 +199,21 @@
   window.addEventListener("hashchange", activateStoryFromHash);
   if (location.hash) activateStoryFromHash();
 
-  // Scroll reveal
+  // Scroll reveal. Bento cards cascade in one after another instead of
+  // popping together, since they land in the viewport at nearly the same time.
   const revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
+            const target = entry.target;
+            const stagger =
+              !prefersReducedMotion && target.classList.contains("bento-card")
+                ? [...target.parentElement.children].indexOf(target) * 80
+                : 0;
+            setTimeout(() => target.classList.add("is-visible"), stagger);
+            observer.unobserve(target);
           }
         });
       },
