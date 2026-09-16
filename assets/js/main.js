@@ -1,6 +1,9 @@
 (() => {
   "use strict";
 
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const scrollBehavior = prefersReducedMotion ? "auto" : "smooth";
+
   // Mobile nav toggle
   const navToggle = document.getElementById("navToggle");
   const mainNav = document.getElementById("mainNav");
@@ -21,8 +24,7 @@
   const cursorGlow = document.getElementById("cursorGlow");
   if (cursorGlow) {
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (canHover && !reduceMotion) {
+    if (canHover && !prefersReducedMotion) {
       let glowX = 0;
       let glowY = 0;
       let glowTicking = false;
@@ -154,7 +156,7 @@
     const target = document.getElementById(id);
     if (!target || !target.classList.contains("story-block")) return;
     setActiveStory(id);
-    requestAnimationFrame(() => target.scrollIntoView({ behavior: "smooth", block: "start" }));
+    requestAnimationFrame(() => target.scrollIntoView({ behavior: scrollBehavior, block: "start" }));
   }
   window.addEventListener("hashchange", activateStoryFromHash);
   if (location.hash) activateStoryFromHash();
@@ -185,7 +187,7 @@
       toTop.classList.toggle("is-visible", window.scrollY > 600);
     });
     toTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: scrollBehavior });
     });
   }
 
@@ -207,10 +209,10 @@
       next.disabled = track.scrollLeft >= max;
     };
     prev.addEventListener("click", () => {
-      track.scrollBy({ left: -cardStep(), behavior: "smooth" });
+      track.scrollBy({ left: -cardStep(), behavior: scrollBehavior });
     });
     next.addEventListener("click", () => {
-      track.scrollBy({ left: cardStep(), behavior: "smooth" });
+      track.scrollBy({ left: cardStep(), behavior: scrollBehavior });
     });
     track.addEventListener("scroll", updateNav, { passive: true });
     window.addEventListener("resize", updateNav);

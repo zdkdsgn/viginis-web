@@ -41,7 +41,10 @@
 }
 
 *, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html{ scroll-padding-top: calc(var(--header-h) + 12px); }
+@media (prefers-reduced-motion: no-preference){
+  html, .b2b-carousel, .team-carousel{ scroll-behavior: smooth; }
+}
 body{
   margin: 0;
   overflow-x: hidden;
@@ -503,7 +506,6 @@ p{ margin: 0 0 1em; }
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   scrollbar-width: none;
   padding: 4px 4px 12px;
   margin: -4px -4px 0;
@@ -617,7 +619,6 @@ p{ margin: 0 0 1em; }
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   scrollbar-width: none;
   padding: 4px 4px 12px;
   margin: -4px -4px 0;
