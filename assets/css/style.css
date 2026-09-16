@@ -444,6 +444,51 @@ p{ margin: 0 0 1em; }
   margin-top: .1em;
 }
 .tap-icon svg{ width: 16px; height: 16px; }
+
+/* per-item icon flourish on hover, each matching what its icon depicts */
+@media (prefers-reduced-motion: no-preference){
+  .story-block[data-story="ai"] .feature-list li:nth-child(1):hover .tap-icon svg{ animation: icon-tap .5s ease; }
+  .story-block[data-story="ai"] .feature-list li:nth-child(2):hover .tap-icon svg{ animation: icon-wiggle .5s ease; }
+  .story-block[data-story="ai"] .feature-list li:nth-child(3):hover .tap-icon svg{ animation: icon-drop .5s ease; }
+
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(1):hover .tap-icon svg{ animation: icon-ascend .55s ease; }
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(2):hover .tap-icon svg{ animation: icon-beat .6s ease; }
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(3):hover .tap-icon svg{ animation: icon-twinkle .5s ease; }
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(4) .tap-icon svg circle{ transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(4):hover .tap-icon svg circle:nth-of-type(1){ transform: translateX(1.5px); }
+  .story-block[data-story="sdileni"] .feature-list li:nth-child(4):hover .tap-icon svg circle:nth-of-type(2){ transform: translateX(-1.5px); }
+
+  .story-block[data-story="inspirace"] .feature-list li:nth-child(1):hover .tap-icon svg{ animation: icon-blink .5s ease; }
+  .story-block[data-story="inspirace"] .feature-list li:nth-child(2):hover .tap-icon svg{ animation: icon-tap .5s ease; }
+  .story-block[data-story="inspirace"] .feature-list li:nth-child(3):hover .tap-icon svg{ animation: icon-wiggle .5s ease; }
+
+  .story-block[data-story="mapa"] .feature-list li:nth-child(1):hover .tap-icon svg{ animation: icon-unfold .5s ease; }
+  .story-block[data-story="mapa"] .feature-list li:nth-child(2):hover .tap-icon svg{ animation: icon-beat .6s ease; }
+  .story-block[data-story="mapa"] .feature-list li:nth-child(3):hover .tap-icon svg{ animation: icon-wiggle .5s ease; }
+
+  .story-block[data-story="zazitek"] .feature-list li:nth-child(1):hover .tap-icon svg{ animation: icon-beat .6s ease; }
+  .story-block[data-story="zazitek"] .feature-list li:nth-child(2):hover .tap-icon svg{ animation: icon-wiggle .5s ease; }
+  .story-block[data-story="zazitek"] .feature-list li:nth-child(3):hover .tap-icon svg{ animation: icon-beat .6s ease; }
+}
+@keyframes icon-drop{
+  0%{ transform: translateY(-5px); }
+  55%{ transform: translateY(1px); }
+  75%{ transform: translateY(-1px); }
+  100%{ transform: translateY(0); }
+}
+@keyframes icon-ascend{
+  0%, 100%{ transform: translateY(0); }
+  40%{ transform: translateY(-5px); }
+  70%{ transform: translateY(-2px); }
+}
+@keyframes icon-blink{
+  0%, 100%{ transform: scaleY(1); }
+  50%{ transform: scaleY(.15); }
+}
+@keyframes icon-unfold{
+  0%, 100%{ transform: scaleX(1); }
+  50%{ transform: scaleX(1.18); }
+}
 .feature-list strong{
   display: block;
   font-size: 1.32rem;
