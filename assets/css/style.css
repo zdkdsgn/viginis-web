@@ -619,6 +619,19 @@ p{ margin: 0 0 1em; }
   margin-bottom: 16px;
 }
 .b2b-carousel-icon svg{ width: 22px; height: 22px; }
+@media (prefers-reduced-motion: no-preference){
+  .b2b-carousel .b2b-carousel-card:nth-child(1):hover .b2b-carousel-icon svg{ animation: icon-wiggle .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(2):hover .b2b-carousel-icon svg{ animation: icon-tap .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(3):hover .b2b-carousel-icon svg{ animation: icon-beat .6s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(4):hover .b2b-carousel-icon svg{ animation: icon-unfold .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(5):hover .b2b-carousel-icon svg{ animation: icon-twinkle .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(6):hover .b2b-carousel-icon svg{ animation: icon-tap .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(7):hover .b2b-carousel-icon svg{ animation: icon-drop .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(8):hover .b2b-carousel-icon svg{ animation: icon-swing .6s ease; transform-origin: top center; }
+  .b2b-carousel .b2b-carousel-card:nth-child(9):hover .b2b-carousel-icon svg{ animation: icon-swing .6s ease; transform-origin: top center; }
+  .b2b-carousel .b2b-carousel-card:nth-child(10):hover .b2b-carousel-icon svg{ animation: icon-wiggle .5s ease; }
+  .b2b-carousel .b2b-carousel-card:nth-child(11):hover .b2b-carousel-icon svg{ animation: icon-beat .6s ease; }
+}
 .b2b-carousel-eyebrow{
   display: block;
   font-size: .72rem;
