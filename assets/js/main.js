@@ -20,6 +20,44 @@
     });
   }
 
+  // Hero stats count up from 0 to their target once scrolled into view
+  const statEls = document.querySelectorAll(".stat-count");
+  if (statEls.length) {
+    const animateCount = (el) => {
+      const target = parseInt(el.dataset.countTo, 10);
+      if (!target) return;
+      if (prefersReducedMotion) {
+        el.textContent = `${target.toLocaleString("cs-CZ")}+`;
+        return;
+      }
+      const duration = 1400;
+      const start = performance.now();
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(target * eased);
+        el.textContent = `${value.toLocaleString("cs-CZ")}+`;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const statObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCount(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.6 }
+      );
+      statEls.forEach((el) => statObserver.observe(el));
+    }
+  }
+
   // Soft green glow that follows the cursor — real mouse pointers only
   const cursorGlow = document.getElementById("cursorGlow");
   if (cursorGlow) {
