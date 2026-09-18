@@ -288,7 +288,6 @@ p{ margin: 0 0 1em; }
 .float-card--top{ top: 8%; left: 4%; animation: floaty 5s ease-in-out infinite; }
 .float-card--bottom{ bottom: 14%; right: 2%; animation: floaty 6s ease-in-out infinite reverse; }
 .float-card--left{ top: 46%; left: -3%; animation: floaty 5.5s ease-in-out infinite reverse; }
-.float-card--right{ top: 22%; right: -2%; animation: floaty 6.5s ease-in-out infinite; }
 @keyframes floaty{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
 
 /* ---------- sections generic ---------- */
