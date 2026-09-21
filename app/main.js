@@ -26,19 +26,30 @@
   demoLoginBtn.addEventListener("click", enterApp);
   logoutBtn.addEventListener("click", exitApp);
 
-  // ---------- view switching (top nav icons + drawer tiles) ----------
+  // ---------- view switching (bottom nav + drawer tiles) ----------
   const views = document.querySelectorAll(".app-view");
-  const navIcons = document.querySelectorAll(".fb-nav-icon[data-view]");
-  const navButtons = document.querySelectorAll(".fb-nav-icon[data-view], .fb-nav-round[data-view]");
+  const navBtns = document.querySelectorAll(".app-nav-btn");
+  const appTopTitle = document.getElementById("appTopTitle");
+  const viewTitles = {
+    feed: "Příběhy",
+    groups: "Skupiny",
+    notifications: "Oznámení",
+    recipes: "Recepty",
+    map: "Kde jíme",
+    categories: "Kategorie",
+    shopping: "Nákupní seznam",
+    privacy: "Soukromí",
+  };
 
   function setActiveView(name) {
     views.forEach((v) => v.classList.toggle("is-active", v.dataset.view === name));
-    navIcons.forEach((b) => b.classList.toggle("is-active", b.dataset.view === name));
+    navBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.view === name));
+    appTopTitle.textContent = viewTitles[name] || "";
     document.querySelector(".app-main").scrollTo({ top: 0, behavior: "auto" });
     window.scrollTo(0, 0);
   }
 
-  navButtons.forEach((btn) => {
+  navBtns.forEach((btn) => {
     btn.addEventListener("click", () => setActiveView(btn.dataset.view));
   });
 
@@ -69,27 +80,6 @@
       setActiveView(tile.dataset.goto);
       closeDrawer();
     });
-  });
-
-  // ---------- profile dropdown ----------
-  const profileToggle = document.getElementById("profileToggle");
-  const profileDropdown = document.getElementById("profileDropdown");
-
-  function closeProfileMenu() {
-    profileDropdown.classList.remove("is-open");
-    profileToggle.setAttribute("aria-expanded", "false");
-  }
-  profileToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = profileDropdown.classList.contains("is-open");
-    profileDropdown.classList.toggle("is-open", !isOpen);
-    profileToggle.setAttribute("aria-expanded", String(!isOpen));
-  });
-  document.addEventListener("click", (e) => {
-    if (!profileDropdown.contains(e.target)) closeProfileMenu();
-  });
-  profileDropdown.addEventListener("click", (e) => {
-    if (e.target.tagName === "A" || e.target.tagName === "BUTTON") closeProfileMenu();
   });
 
   // ---------- subtabs (visual only, demo has one sample set per view) ----------
