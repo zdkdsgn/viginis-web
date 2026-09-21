@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -39,45 +39,44 @@
 <div class="app-shell" id="appShell" hidden>
 
   <header class="app-top">
-    <div class="app-top-brand">
-      <img src="../assets/img/logo-icon.svg" width="24" height="24" alt="">
-    </div>
+    <div class="app-top-inner">
+      <div class="app-top-brand">
+        <img src="../assets/img/logo-icon.svg" width="24" height="24" alt="">
+      </div>
 
-    <nav class="app-dock" aria-label="Hlavní navigace appky">
-      <button type="button" class="app-nav-btn is-active" data-view="feed" aria-label="Příběhy">
-        <span class="app-nav-btn-bg"></span>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      </button>
-      <button type="button" class="app-nav-btn" data-view="groups" aria-label="Skupiny">
-        <span class="app-nav-btn-bg"></span>
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.3" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.6" stroke="currentColor" stroke-width="1.8"/><path d="M2.8 20c0-3.6 2.7-6 6.2-6s6.2 2.4 6.2 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 14.3c2.6.2 4.7 2.3 4.7 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <button type="button" class="app-nav-add" id="composeBtn" aria-label="Přidat příspěvek">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
-      </button>
-      <button type="button" class="app-nav-btn" data-view="recipes" aria-label="Recepty">
-        <span class="app-nav-btn-bg"></span>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 6.5c-1.6-1.3-4-2-7-2v13c3 0 5.4.7 7 2 1.6-1.3 4-2 7-2v-13c-3 0-5.4.7-7 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      </button>
-      <button type="button" class="app-nav-btn" data-view="map" aria-label="Kde jíme">
-        <span class="app-nav-btn-bg"></span>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
-      </button>
-    </nav>
+      <label class="search-bar search-bar--top">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Hledat">
+      </label>
 
-    <div class="app-top-actions">
-      <button type="button" class="app-top-icon" id="moreToggle" aria-label="Další" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="4" y="14" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="6" height="6" rx="1.5" fill="currentColor"/></svg>
-      </button>
-      <button type="button" class="app-top-icon" data-view="notifications" aria-label="Oznámení">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-        <span class="app-top-badge">3</span>
-      </button>
-      <div class="app-top-profile">
-        <button type="button" class="app-top-avatar" id="profileToggle" aria-label="Profil" aria-expanded="false">ZK</button>
-        <div class="app-top-dropdown" id="profileDropdown">
-          <a href="../">← Zpět na web</a>
-          <button type="button" id="logoutBtn">Odhlásit se</button>
+      <nav class="app-dock" aria-label="Hlavní navigace appky">
+        <button type="button" class="app-nav-btn is-active" data-view="feed" aria-label="Příběhy">
+          <span class="app-nav-btn-bg"></span>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="app-nav-btn" data-view="groups" aria-label="Skupiny">
+          <span class="app-nav-btn-bg"></span>
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.3" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.6" stroke="currentColor" stroke-width="1.8"/><path d="M2.8 20c0-3.6 2.7-6 6.2-6s6.2 2.4 6.2 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 14.3c2.6.2 4.7 2.3 4.7 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="app-nav-add" id="composeBtn" aria-label="Přidat příspěvek">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </nav>
+
+      <div class="app-top-actions">
+        <button type="button" class="app-top-icon" id="moreToggle" aria-label="Další" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="4" y="14" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="6" height="6" rx="1.5" fill="currentColor"/></svg>
+        </button>
+        <button type="button" class="app-top-icon" data-view="notifications" aria-label="Oznámení">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span class="app-top-badge">3</span>
+        </button>
+        <div class="app-top-profile">
+          <button type="button" class="app-top-avatar" id="profileToggle" aria-label="Profil" aria-expanded="false">ZK</button>
+          <div class="app-top-dropdown" id="profileDropdown">
+            <a href="../">← Zpět na web</a>
+            <button type="button" id="logoutBtn">Odhlásit se</button>
+          </div>
         </div>
       </div>
     </div>
