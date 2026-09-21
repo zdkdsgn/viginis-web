@@ -11,3 +11,6 @@ assets/img/jidlo_*.png
 # Dropped from the food gallery, no longer referenced
 assets/img/jidlo_5.webp
 assets/img/jidlo_10.webp
+
+# Reference-only app screenshots, not used by the live site
+screen/

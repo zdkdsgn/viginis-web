@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>viginis app — Demo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div class="login-screen" id="loginScreen">
+  <a href="../" class="login-back">← Zpět na web</a>
+  <div class="login-card">
+    <span class="login-badge">Testovací verze</span>
+    <img class="login-logo" src="../assets/img/logo-icon.svg" width="52" height="46" alt="">
+    <h1>Vítej zpátky</h1>
+    <p class="login-lead">Přihlaš se a podívej se, co je nového u tvých jedlíků.</p>
+
+    <form id="loginForm" class="login-form">
+      <label class="login-field">
+        <span>E-mail</span>
+        <input type="email" name="email" placeholder="jmeno@email.cz" autocomplete="email">
+      </label>
+      <label class="login-field">
+        <span>Heslo</span>
+        <input type="password" name="password" placeholder="••••••••" autocomplete="current-password">
+      </label>
+      <button type="submit" class="btn btn-primary login-submit">Přihlásit se</button>
+    </form>
+
+    <button type="button" class="login-demo" id="demoLoginBtn">Vyzkoušet demo bez registrace →</button>
+  </div>
+</div>
+
+<!-- ================= APP SHELL ================= -->
+<div class="app-shell" id="appShell" hidden>
+
+  <header class="app-top">
+    <div class="app-top-brand">
+      <img src="../assets/img/logo-icon.svg" width="24" height="24" alt="">
+      <span>viginis</span>
+    </div>
+    <h1 class="app-top-title" id="appTopTitle">Příběhy</h1>
+    <button class="app-top-logout" id="logoutBtn" aria-label="Odhlásit se">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </header>
+
+  <main class="app-main">
+
+    <!-- ---------------- PŘÍBĚHY (FEED) ---------------- -->
+    <section class="app-view is-active" data-view="feed" aria-label="Příběhy">
+
+      <article class="post">
+        <header class="post-head">
+          <span class="avatar" style="--h:150">FV</span>
+          <div class="post-head-info">
+            <strong>František Vopěnka</strong>
+            <div class="post-stars" aria-hidden="true">★★★★<span class="dim">★</span></div>
+          </div>
+          <span class="post-meta">
+            <span class="post-time">včera 17:39</span>
+            <span class="post-tag">večeře</span>
+          </span>
+        </header>
+        <div class="post-ai-lines">
+          <p><span class="ai-badge">AI</span> Na talíři jsou dva smažené rybí filety s bramborovou kaší posypanou petrželkou.</p>
+          <p><span class="ai-badge">AI</span> Řecký salát s cherry rajčaty, okurkou, paprikou, červenou cibulí a fetou.</p>
+        </div>
+        <div class="post-photos">
+          <img src="../assets/img/jidlo_3.webp" alt="Smažené rybí filety s bramborovou kaší">
+          <img src="../assets/img/jidlo_6.webp" alt="Řecký salát s cherry rajčaty a fetou">
+        </div>
+        <div class="post-hashtags">
+          <span>#doma</span>
+          <span>#práce</span>
+        </div>
+        <footer class="post-foot">
+          <div class="post-reactions">
+            <button type="button" class="react-btn" data-react="like" aria-label="Líbí se mi">👍</button>
+            <button type="button" class="react-btn" data-react="love" aria-label="Miluji to">❤️</button>
+            <button type="button" class="react-btn" data-react="smile" aria-label="Skvělé">🙂</button>
+          </div>
+          <div class="post-stars" aria-hidden="true">★★★★<span class="dim">★</span></div>
+          <span class="post-comment-link">bez komentáře</span>
+        </footer>
+      </article>
+
+      <article class="post">
+        <header class="post-head">
+          <span class="avatar" style="--h:20">ZK</span>
+          <div class="post-head-info">
+            <strong>Zdeněk Kolařík</strong>
+            <div class="post-stars" aria-hidden="true">★★★★★</div>
+          </div>
+          <span class="post-meta">
+            <span class="post-time">dnes 12:10</span>
+            <span class="post-tag">oběd</span>
+          </span>
+        </header>
+        <div class="post-ai-lines">
+          <p><span class="ai-badge">AI</span> Salát s pečenou řepou, pomerančem, vepřovou panenkou a fetou.</p>
+        </div>
+        <div class="post-photos post-photos--single">
+          <img src="../assets/img/jidlo_1.webp" alt="Salát s pečenou řepou, pomerančem, vepřovou panenkou a fetou">
+        </div>
+        <div class="post-hashtags">
+          <span>#oběd</span>
+          <span>#zdravě</span>
+        </div>
+        <footer class="post-foot">
+          <div class="post-reactions">
+            <button type="button" class="react-btn" data-react="like" aria-label="Líbí se mi">👍</button>
+            <button type="button" class="react-btn" data-react="love" aria-label="Miluji to">❤️</button>
+            <button type="button" class="react-btn" data-react="smile" aria-label="Skvělé">🙂</button>
+          </div>
+          <div class="post-stars" aria-hidden="true">★★★★★</div>
+          <span class="post-comment-link">2 komentáře</span>
+        </footer>
+      </article>
+
+      <article class="post">
+        <header class="post-head">
+          <span class="avatar" style="--h:280">AO</span>
+          <div class="post-head-info">
+            <strong>Alena Oulická</strong>
+            <div class="post-stars" aria-hidden="true">★★★★<span class="dim">★</span></div>
+          </div>
+          <span class="post-meta">
+            <span class="post-time">dnes 09:22</span>
+            <span class="post-tag">snídaně</span>
+          </span>
+        </header>
+        <div class="post-ai-lines">
+          <p><span class="ai-badge">AI</span> Ovesná kaše s čerstvým ovocem a medem.</p>
+        </div>
+        <div class="post-photos post-photos--single">
+          <img src="../assets/img/jidlo_7.webp" alt="Snídaně s vejcem a houbami">
+        </div>
+        <footer class="post-foot">
+          <div class="post-reactions">
+            <button type="button" class="react-btn" data-react="like" aria-label="Líbí se mi">👍</button>
+            <button type="button" class="react-btn" data-react="love" aria-label="Miluji to">❤️</button>
+            <button type="button" class="react-btn" data-react="smile" aria-label="Skvělé">🙂</button>
+          </div>
+          <div class="post-stars" aria-hidden="true">★★★★<span class="dim">★</span></div>
+          <span class="post-comment-link">1 komentář</span>
+        </footer>
+      </article>
+
+    </section>
+
+    <!-- ---------------- SKUPINY ---------------- -->
+    <section class="app-view" data-view="groups" aria-label="Skupiny">
+
+      <div class="subtabs" data-subtabs="groups">
+        <button type="button" class="subtab is-active" data-subtab="discover">Objevit</button>
+        <button type="button" class="subtab" data-subtab="mine">Moje skupiny</button>
+        <button type="button" class="subtab" data-subtab="following">Sleduji</button>
+        <button type="button" class="subtab" data-subtab="invites">Pozvánky</button>
+      </div>
+
+      <label class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Hledat">
+      </label>
+
+      <div class="group-grid">
+        <a href="#" class="group-card" style="--from:#8FD3C7; --to:#4E9F8C;">
+          <span class="group-card-title">Dubeč crew</span>
+        </a>
+        <a href="#" class="group-card" style="--from:#1F3A5F; --to:#0E1F33;">
+          <span class="group-card-title">Vývoj</span>
+        </a>
+      </div>
+
+      <h2 class="section-title">Návrhy skupin<a href="#" class="section-title-link">Zobrazit vše</a></h2>
+      <div class="suggest-card" style="--from:#7FC1F0; --to:#F2C94C;">
+        <div class="suggest-card-body">
+          <strong>Adamová jablka</strong>
+          <span><svg viewBox="0 0 24 24" fill="none" width="14" height="14"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c0-4 3.4-6.8 7.5-6.8s7.5 2.8 7.5 6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 členové</span>
+        </div>
+        <div class="suggest-card-actions">
+          <button type="button" class="btn btn-secondary btn-xs">Sledovat</button>
+          <button type="button" class="btn btn-primary btn-xs">Žádost</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ---------------- OZNÁMENÍ ---------------- -->
+    <section class="app-view" data-view="notifications" aria-label="Oznámení">
+
+      <div class="subtabs">
+        <button type="button" class="subtab" data-subtab="all">Vše</button>
+        <button type="button" class="subtab is-active" data-subtab="posts">Příspěvky</button>
+      </div>
+
+      <ul class="notif-list">
+        <li class="notif-item">
+          <span class="avatar" style="--h:150">FV</span>
+          <div class="notif-body">
+            <strong>František Vopěnka</strong>
+            <span class="notif-time">včera 17:39</span>
+            <span class="notif-text">Přidal novou fotku jídla</span>
+          </div>
+          <img class="notif-thumb" src="../assets/img/jidlo_6.webp" alt="">
+        </li>
+        <li class="notif-item">
+          <span class="avatar" style="--h:20">ZK</span>
+          <div class="notif-body">
+            <strong>Zdeněk Kolařík</strong>
+            <span class="notif-time">dnes 12:10</span>
+            <span class="notif-text">Ohodnotil tvůj recept</span>
+          </div>
+          <img class="notif-thumb" src="../assets/img/jidlo_1.webp" alt="">
+        </li>
+        <li class="notif-item">
+          <span class="avatar" style="--h:280">AO</span>
+          <div class="notif-body">
+            <strong>Alena Oulická</strong>
+            <span class="notif-time">dnes 09:22</span>
+            <span class="notif-text">Okomentovala tvůj příspěvek</span>
+          </div>
+          <img class="notif-thumb" src="../assets/img/jidlo_7.webp" alt="">
+        </li>
+      </ul>
+
+    </section>
+
+    <!-- ---------------- RECEPTY ---------------- -->
+    <section class="app-view" data-view="recipes" aria-label="Recepty">
+
+      <div class="subtabs">
+        <button type="button" class="subtab is-active" data-subtab="categories">Kategorie</button>
+        <button type="button" class="subtab" data-subtab="discover">Objevit recepty</button>
+        <button type="button" class="subtab" data-subtab="favorites">Oblíbené</button>
+      </div>
+
+      <label class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Hledat recepty">
+        <span class="search-bar-filter"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M4 6h16M8 12h8M11 18h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </label>
+
+      <h2 class="section-title">Dnešní výběr</h2>
+      <div class="recipe-feature">
+        <img src="../assets/img/jidlo_8.webp" alt="Pečené kotlety s jablky a brusinkami">
+        <div class="recipe-feature-body">
+          <strong>Kotlety s jablky</strong>
+          <span>320 kcal · 25 min</span>
+          <div class="post-stars" aria-hidden="true"><span class="dim">★★★★★</span> (0×)</div>
+        </div>
+        <button type="button" class="recipe-bookmark" aria-label="Uložit recept">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3.5h12v17l-6-4-6 4v-17z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <h2 class="section-title">Recepty podle kategorií</h2>
+      <div class="cat-grid">
+        <a href="#" class="cat-card">
+          <img src="../assets/img/jidlo_9.webp" alt="">
+          <span class="cat-card-label">Svačina<small>4</small></span>
+        </a>
+        <a href="#" class="cat-card">
+          <img src="../assets/img/jidlo_7.webp" alt="">
+          <span class="cat-card-label">Snídaně<small>224</small></span>
+        </a>
+        <a href="#" class="cat-card">
+          <img src="../assets/img/jidlo_4.webp" alt="">
+          <span class="cat-card-label">Oběd<small>318</small></span>
+        </a>
+        <a href="#" class="cat-card">
+          <img src="../assets/img/jidlo_3.webp" alt="">
+          <span class="cat-card-label">Večeře<small>276</small></span>
+        </a>
+      </div>
+
+    </section>
+
+    <!-- ---------------- KDE JÍME (MAPA) ---------------- -->
+    <section class="app-view" data-view="map" aria-label="Kde jíme">
+      <div class="map-mock">
+        <div class="map-mock-controls">
+          <button type="button" class="map-ctrl" aria-label="Filtry"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M8 12h8M11 18h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+          <button type="button" class="map-ctrl" aria-label="Vrstvy"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 13l9 5 9-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+          <button type="button" class="map-ctrl" aria-label="Profil"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c0-4 3.4-6.8 7.5-6.8s7.5 2.8 7.5 6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="map-pin" style="top:20%; left:12%;">
+          <img src="../assets/img/jidlo_1.webp" alt="">
+          <span class="map-pin-badge">FV</span>
+        </div>
+        <div class="map-pin map-pin--lg" style="top:46%; left:52%;">
+          <img src="../assets/img/jidlo_3.webp" alt="">
+          <span class="map-pin-badge map-pin-badge--count">26</span>
+        </div>
+        <div class="map-pin" style="top:44%; left:78%;">
+          <img src="../assets/img/jidlo_8.webp" alt="">
+          <span class="map-pin-badge map-pin-badge--count">6</span>
+        </div>
+        <div class="map-pin" style="top:62%; left:28%;">
+          <img src="../assets/img/jidlo_9.webp" alt="">
+          <span class="map-pin-badge map-pin-badge--count">2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------- KATEGORIE ---------------- -->
+    <section class="app-view" data-view="categories" aria-label="Kategorie">
+      <h2 class="section-title">Všechny kategorie</h2>
+      <div class="cat-grid">
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_9.webp" alt=""><span class="cat-card-label">Svačina<small>4</small></span></a>
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_7.webp" alt=""><span class="cat-card-label">Snídaně<small>224</small></span></a>
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_4.webp" alt=""><span class="cat-card-label">Oběd<small>318</small></span></a>
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_3.webp" alt=""><span class="cat-card-label">Večeře<small>276</small></span></a>
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_2.webp" alt=""><span class="cat-card-label">Street food<small>92</small></span></a>
+        <a href="#" class="cat-card"><img src="../assets/img/jidlo_6.webp" alt=""><span class="cat-card-label">Saláty<small>140</small></span></a>
+      </div>
+    </section>
+
+    <!-- ---------------- NÁKUPNÍ SEZNAM ---------------- -->
+    <section class="app-view" data-view="shopping" aria-label="Nákupní seznam">
+      <h2 class="section-title">Nákupní seznam</h2>
+      <ul class="check-list">
+        <li class="check-item"><label><input type="checkbox"><span>Losos</span></label><em>1 ks</em></li>
+        <li class="check-item"><label><input type="checkbox"><span>Špenát</span></label><em>150 g</em></li>
+        <li class="check-item"><label><input type="checkbox" checked><span>Citrón</span></label><em>2 ks</em></li>
+        <li class="check-item"><label><input type="checkbox"><span>Cherry rajčata</span></label><em>250 g</em></li>
+        <li class="check-item"><label><input type="checkbox" checked><span>Feta</span></label><em>200 g</em></li>
+      </ul>
+    </section>
+
+    <!-- ---------------- SOUKROMÍ ---------------- -->
+    <section class="app-view" data-view="privacy" aria-label="Soukromí">
+      <h2 class="section-title">Soukromí</h2>
+      <ul class="settings-list">
+        <li><span>Kdo vidí moje příspěvky</span><em>Přátelé</em></li>
+        <li><span>Kdo mě může pozvat do skupiny</span><em>Všichni</em></li>
+        <li><span>Zobrazovat polohu u příspěvků</span><em>Zapnuto</em></li>
+        <li><span>Blokovaní uživatelé</span><em>0</em></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ---------------- MORE DRAWER ---------------- -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <div class="more-drawer" id="moreDrawer">
+    <label class="search-bar search-bar--drawer">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="text" placeholder="Hledat na viginis">
+    </label>
+    <a href="#" class="drawer-profile">
+      <span class="drawer-profile-avatar"><img src="../assets/img/logo-icon.svg" alt=""></span>
+      <strong>Zdeněk Kolařík</strong>
+      <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="drawer-grid">
+      <button type="button" class="drawer-tile" data-goto="recipes">
+        <span class="drawer-tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6.5c-1.6-1.3-4-2-7-2v13c3 0 5.4.7 7 2 1.6-1.3 4-2 7-2v-13c-3 0-5.4.7-7 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        Recepty
+      </button>
+      <button type="button" class="drawer-tile" data-goto="shopping">
+        <span class="drawer-tile-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h2l1.7 10.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6L20.5 8H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"/></svg>
+          <span class="drawer-tile-badge">2</span>
+        </span>
+        Nákupní seznam
+      </button>
+      <button type="button" class="drawer-tile" data-goto="categories">
+        <span class="drawer-tile-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="9.5" width="18" height="11" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M3 9.5l3.5-5h11l3.5 5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        Kategorie
+      </button>
+      <button type="button" class="drawer-tile" data-goto="map">
+        <span class="drawer-tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></span>
+        Kde jíme
+      </button>
+      <button type="button" class="drawer-tile" data-goto="privacy">
+        <span class="drawer-tile-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 11V8a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        Soukromí
+      </button>
+      <a href="#" class="drawer-tile drawer-tile--plan">
+        <span class="drawer-tile-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 5h5l-4 4 1.5 7L12 15l-5.5 3L8 11 4 7h5l3-5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+        <strong>Roční plán</strong>
+        automaticky se obnovuje
+      </a>
+    </div>
+  </div>
+
+  <!-- ---------------- BOTTOM NAV ---------------- -->
+  <nav class="app-nav" aria-label="Hlavní navigace appky">
+    <button type="button" class="app-nav-btn is-active" data-view="feed">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Příběhy</span>
+    </button>
+    <button type="button" class="app-nav-btn" data-view="groups">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.3" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="10.5" r="2.6" stroke="currentColor" stroke-width="1.6"/><path d="M2.8 20c0-3.6 2.7-6 6.2-6s6.2 2.4 6.2 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15.5 14.3c2.6.2 4.7 2.3 4.7 5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span>Skupiny</span>
+    </button>
+    <button type="button" class="app-nav-add" id="composeBtn" aria-label="Přidat příspěvek">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <button type="button" class="app-nav-btn" data-view="notifications">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <span>Oznámení</span>
+    </button>
+    <button type="button" class="app-nav-more" id="moreToggle" aria-label="Další" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<script src="main.js?v=1"></script>
+</body>
+</html>
