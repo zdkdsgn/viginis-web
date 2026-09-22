@@ -118,9 +118,6 @@
     toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
   }
 
-  document.getElementById("composeBtn").addEventListener("click", () => {
-    showToast("Funkce brzy dostupná 🙂");
-  });
   document.querySelectorAll(".recipe-bookmark").forEach((btn) => {
     btn.addEventListener("click", () => showToast("Recept uložen"));
   });
