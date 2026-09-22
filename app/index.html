@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
@@ -51,19 +51,19 @@
 
       <nav class="app-dock" aria-label="Hlavní navigace appky">
         <button type="button" class="app-nav-btn is-active" data-view="feed" aria-label="Příběhy">
-          <span class="app-nav-btn-bg"></span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span class="app-nav-btn-bar"></span>
         </button>
         <button type="button" class="app-nav-btn" data-view="groups" aria-label="Skupiny">
-          <span class="app-nav-btn-bg"></span>
           <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3.3" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.6" stroke="currentColor" stroke-width="1.8"/><path d="M2.8 20c0-3.6 2.7-6 6.2-6s6.2 2.4 6.2 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 14.3c2.6.2 4.7 2.3 4.7 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </button>
-        <button type="button" class="app-nav-add" id="composeBtn" aria-label="Přidat příspěvek">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span class="app-nav-btn-bar"></span>
         </button>
       </nav>
 
       <div class="app-top-actions">
+        <button type="button" class="app-nav-add" id="composeBtn" aria-label="Přidat příspěvek">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
         <button type="button" class="app-top-icon" id="moreToggle" aria-label="Další" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="4" y="14" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="14" y="14" width="6" height="6" rx="1.5" fill="currentColor"/></svg>
         </button>

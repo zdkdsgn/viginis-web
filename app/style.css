@@ -191,11 +191,11 @@ a{ color: inherit; text-decoration: none; }
 .app-dock{
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-.app-top-actions{ display: flex; align-items: center; gap: 2px; flex-shrink: 0; margin-left: auto; }
+.app-top-actions{ display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-left: auto; }
 .app-top-icon{
   position: relative;
   width: 38px; height: 38px;
@@ -442,31 +442,33 @@ a{ color: inherit; text-decoration: none; }
 .settings-list em{ font-style: normal; color: var(--brand-700); font-weight: 600; font-size: .84rem; }
 
 /* =========================================================
-   DOCK ICONS — same ghost-circle language as the top-bar action icons
+   DOCK ICONS — FB-style: wide tap targets, icon-color + underline
+   for the active item instead of a filled pill
    ========================================================= */
 .app-nav-btn{
   position: relative;
-  width: 38px; height: 38px;
+  width: 56px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   border: none; cursor: pointer;
   background: none;
   color: var(--ink-muted);
-  border-radius: 50%;
+  border-radius: 10px;
   transition: background .15s ease, color .15s ease, transform .15s ease;
 }
-.app-nav-btn svg{ position: relative; width: 18px; height: 18px; z-index: 1; }
-.app-nav-btn-bg{
-  position: absolute; inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(150deg, var(--brand), var(--brand-700));
-  transform: scale(.6);
+.app-nav-btn svg{ position: relative; width: 23px; height: 23px; z-index: 1; }
+.app-nav-btn-bar{
+  position: absolute; left: 50%; bottom: 0;
+  width: 32px; height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--brand);
+  transform: translateX(-50%) scaleX(0);
   opacity: 0;
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;
 }
-.app-nav-btn.is-active{ color: #fff; }
-.app-nav-btn.is-active .app-nav-btn-bg{ transform: scale(1); opacity: 1; }
+.app-nav-btn.is-active{ color: var(--brand); }
+.app-nav-btn.is-active .app-nav-btn-bar{ transform: translateX(-50%) scaleX(1); opacity: 1; }
 .app-nav-btn:hover:not(.is-active){ background: var(--app-bg); color: var(--ink-soft); }
-.app-nav-btn:active{ transform: scale(.92); }
+.app-nav-btn:active{ transform: scale(.96); }
 .app-nav-add{
   position: relative;
   width: 38px; height: 38px; border-radius: 50%;
@@ -474,7 +476,6 @@ a{ color: inherit; text-decoration: none; }
   border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: transform .15s ease, background .15s ease;
-  margin-left: 4px;
 }
 .app-nav-add:hover{ background: var(--brand-600); }
 .app-nav-add:active{ transform: scale(.92); }
@@ -551,8 +552,11 @@ a{ color: inherit; text-decoration: none; }
   .app-top-inner{ gap: 8px; }
   .search-bar--top{ padding: 6px 10px; gap: 6px; }
   .search-bar--top input{ font-size: .8rem; }
-  .app-nav-btn{ width: 34px; height: 34px; }
-  .app-nav-btn svg{ width: 16px; height: 16px; }
+  .app-dock{ gap: 4px; }
+  .app-nav-btn{ width: 42px; height: 38px; }
+  .app-nav-btn svg{ width: 19px; height: 19px; }
+  .app-nav-btn-bar{ width: 24px; }
+  .app-top-actions{ gap: 4px; }
   .app-nav-add{ width: 34px; height: 34px; }
   .app-nav-add svg{ width: 15px; height: 15px; }
   .app-top-icon{ width: 34px; height: 34px; }
