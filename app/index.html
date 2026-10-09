@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=13">
+<link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
 </div>
 
 <!-- ================= APP SHELL ================= -->
-<div class="app-shell" id="appShell" hidden>
+<div class="app-shell" id="appShell" data-view="feed" hidden>
 
   <header class="app-top">
     <div class="app-top-inner">
@@ -82,6 +82,17 @@
       </div>
     </div>
   </header>
+
+  <aside class="home-side" aria-label="Zkratky">
+    <button type="button" class="side-link" data-goto="recipes">
+      <span class="side-link-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6.5c-1.6-1.3-4-2-7-2v13c3 0 5.4.7 7 2 1.6-1.3 4-2 7-2v-13c-3 0-5.4.7-7 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+      Recepty
+    </button>
+    <button type="button" class="side-link" data-goto="map">
+      <span class="side-link-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg></span>
+      Kde jíme
+    </button>
+  </aside>
 
   <main class="app-main">
 
@@ -428,6 +439,6 @@
 
 </div>
 
-<script src="main.js?v=4"></script>
+<script src="main.js?v=5"></script>
 </body>
 </html>

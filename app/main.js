@@ -32,6 +32,7 @@
   const navTriggers = document.querySelectorAll(".app-nav-btn[data-view], .app-top-icon[data-view]");
 
   function setActiveView(name) {
+    appShell.dataset.view = name;
     views.forEach((v) => v.classList.toggle("is-active", v.dataset.view === name));
     navBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.view === name));
     document.querySelector(".app-main").scrollTo({ top: 0, behavior: "auto" });
@@ -64,7 +65,7 @@
   });
   drawerBackdrop.addEventListener("click", closeDrawer);
 
-  document.querySelectorAll(".drawer-tile[data-goto]").forEach((tile) => {
+  document.querySelectorAll(".drawer-tile[data-goto], .side-link[data-goto]").forEach((tile) => {
     tile.addEventListener("click", () => {
       setActiveView(tile.dataset.goto);
       closeDrawer();
