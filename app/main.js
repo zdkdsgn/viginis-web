@@ -65,12 +65,61 @@
   });
   drawerBackdrop.addEventListener("click", closeDrawer);
 
-  document.querySelectorAll(".drawer-tile[data-goto], .side-link[data-goto]").forEach((tile) => {
+  document.querySelectorAll("[data-goto]").forEach((tile) => {
     tile.addEventListener("click", () => {
       setActiveView(tile.dataset.goto);
       closeDrawer();
     });
   });
+
+
+  // ---------- home rail: recipe carousel ----------
+  const railTrack = document.getElementById("railTrack");
+  const railPrev = document.getElementById("railPrev");
+  const railNext = document.getElementById("railNext");
+  const railDots = document.getElementById("railDots");
+  const railSlides = railTrack.querySelectorAll(".rail-slide");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  railSlides.forEach(() => {
+    const dot = document.createElement("span");
+    dot.className = "rail-dot";
+    railDots.appendChild(dot);
+  });
+
+  let railIndex = 0;
+  let railBusy = false;
+  let railSettle = null;
+  function setRailUi(idx) {
+    railDots.querySelectorAll(".rail-dot").forEach((d, i) => d.classList.toggle("is-active", i === idx));
+    railPrev.disabled = idx <= 0;
+    railNext.disabled = idx >= railSlides.length - 1;
+  }
+  function railSync() {
+    const w = railTrack.clientWidth;
+    if (!w) return;
+    railIndex = Math.round(railTrack.scrollLeft / w);
+    setRailUi(railIndex);
+  }
+  function railSettleSoon(ms) {
+    clearTimeout(railSettle);
+    railSettle = setTimeout(() => { railBusy = false; railSync(); }, ms);
+  }
+  function railGoTo(i) {
+    railIndex = Math.max(0, Math.min(railSlides.length - 1, i));
+    setRailUi(railIndex);
+    railBusy = true;
+    railSettleSoon(700);
+    railTrack.scrollTo({ left: railIndex * railTrack.clientWidth, behavior: reduceMotion ? "auto" : "smooth" });
+  }
+  railPrev.addEventListener("click", () => railGoTo(railIndex - 1));
+  railNext.addEventListener("click", () => railGoTo(railIndex + 1));
+  railTrack.addEventListener("scroll", () => {
+    if (railBusy) { railSettleSoon(150); return; }
+    railSync();
+  }, { passive: true });
+  window.addEventListener("resize", () => railGoTo(railIndex));
+  setRailUi(0);
 
   // ---------- profile dropdown ----------
   const profileToggle = document.getElementById("profileToggle");

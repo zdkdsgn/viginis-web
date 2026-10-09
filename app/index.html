@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 </head>
 <body>
 
@@ -83,15 +83,54 @@
     </div>
   </header>
 
-  <aside class="home-side" aria-label="Zkratky">
-    <button type="button" class="side-link" data-goto="recipes">
-      <span class="side-link-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 6.5c-1.6-1.3-4-2-7-2v13c3 0 5.4.7 7 2 1.6-1.3 4-2 7-2v-13c-3 0-5.4.7-7 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
-      Recepty
-    </button>
-    <button type="button" class="side-link" data-goto="map">
-      <span class="side-link-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg></span>
-      Kde jíme
-    </button>
+  <aside class="home-side" aria-label="Recepty a mapa">
+    <section class="rail-card" aria-label="Recepty">
+      <div class="rail-head">
+        <h2>Recepty</h2>
+        <button type="button" class="rail-more" data-goto="recipes">Vše</button>
+      </div>
+      <div class="rail-carousel">
+        <div class="rail-track" id="railTrack">
+          <button type="button" class="rail-slide" data-goto="recipes">
+            <img src="../assets/img/jidlo_8.webp" alt="" loading="lazy">
+            <span class="rail-slide-label"><strong>Kotlety s jablky</strong><small>320 kcal · 25 min</small></span>
+          </button>
+          <button type="button" class="rail-slide" data-goto="recipes">
+            <img src="../assets/img/jidlo_7.webp" alt="" loading="lazy">
+            <span class="rail-slide-label"><strong>Snídaně s vajíčkem</strong><small>410 kcal · 15 min</small></span>
+          </button>
+          <button type="button" class="rail-slide" data-goto="recipes">
+            <img src="../assets/img/jidlo_4.webp" alt="" loading="lazy">
+            <span class="rail-slide-label"><strong>Losos se špenátem</strong><small>380 kcal · 30 min</small></span>
+          </button>
+          <button type="button" class="rail-slide" data-goto="recipes">
+            <img src="../assets/img/jidlo_9.webp" alt="" loading="lazy">
+            <span class="rail-slide-label"><strong>Falafel s rukolou</strong><small>290 kcal · 20 min</small></span>
+          </button>
+          <button type="button" class="rail-slide" data-goto="recipes">
+            <img src="../assets/img/jidlo_3.webp" alt="" loading="lazy">
+            <span class="rail-slide-label"><strong>Klobásky s kaší</strong><small>520 kcal · 35 min</small></span>
+          </button>
+        </div>
+        <button type="button" class="rail-arrow rail-prev" id="railPrev" aria-label="Předchozí recept"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="rail-arrow rail-next" id="railNext" aria-label="Další recept"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="rail-dots" id="railDots" aria-hidden="true"></div>
+    </section>
+
+    <section class="rail-card" aria-label="Kde jíme">
+      <div class="rail-head">
+        <h2>Kde jíme</h2>
+        <button type="button" class="rail-more" data-goto="map">Otevřít</button>
+      </div>
+      <button type="button" class="rail-map" data-goto="map" aria-label="Otevřít mapu Kde jíme">
+        <span class="map-mock map-mock--mini">
+          <span class="map-pin" style="top:14%; left:10%;"><img src="../assets/img/jidlo_1.webp" alt=""><span class="map-pin-badge">FV</span></span>
+          <span class="map-pin map-pin--lg" style="top:38%; left:42%;"><img src="../assets/img/jidlo_3.webp" alt=""><span class="map-pin-badge map-pin-badge--count">26</span></span>
+          <span class="map-pin" style="top:64%; left:12%;"><img src="../assets/img/jidlo_9.webp" alt=""><span class="map-pin-badge map-pin-badge--count">2</span></span>
+        </span>
+      </button>
+    </section>
   </aside>
 
   <main class="app-main">
@@ -439,6 +478,6 @@
 
 </div>
 
-<script src="main.js?v=5"></script>
+<script src="main.js?v=8"></script>
 </body>
 </html>
