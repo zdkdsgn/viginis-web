@@ -48,15 +48,20 @@
   const moreDrawer = document.getElementById("moreDrawer");
   const drawerBackdrop = document.getElementById("drawerBackdrop");
 
+  const drawerClose = document.getElementById("drawerClose");
+
   function openDrawer() {
     moreDrawer.classList.add("is-open");
     drawerBackdrop.classList.add("is-open");
     moreToggle.setAttribute("aria-expanded", "true");
+    setTimeout(() => drawerClose.focus({ preventScroll: true }), 60);
   }
   function closeDrawer() {
+    if (!moreDrawer.classList.contains("is-open")) return;
     moreDrawer.classList.remove("is-open");
     drawerBackdrop.classList.remove("is-open");
     moreToggle.setAttribute("aria-expanded", "false");
+    moreToggle.focus({ preventScroll: true });
   }
   moreToggle.addEventListener("click", () => {
     const isOpen = moreDrawer.classList.contains("is-open");
@@ -64,6 +69,10 @@
     else openDrawer();
   });
   drawerBackdrop.addEventListener("click", closeDrawer);
+  drawerClose.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDrawer();
+  });
 
   document.querySelectorAll("[data-goto]").forEach((tile) => {
     tile.addEventListener("click", () => {
@@ -168,6 +177,9 @@
     toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 2200);
   }
 
+  document.querySelectorAll("[data-soon]").forEach((el) => {
+    el.addEventListener("click", () => showToast("Funkce brzy dostupná 🙂"));
+  });
   document.querySelectorAll(".recipe-bookmark").forEach((btn) => {
     btn.addEventListener("click", () => showToast("Recept uložen"));
   });
