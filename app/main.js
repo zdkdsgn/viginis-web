@@ -122,7 +122,7 @@
     function ui() {
       dotsEl.querySelectorAll(".rail-dot").forEach((d, i) => d.classList.toggle("is-active", i === index));
       prev.disabled = index <= 0;
-      next.disabled = index >= pages - 1;
+      next.disabled = pages > 0 && index >= pages - 1;
     }
     function sync() {
       if (!track.clientWidth) return;
