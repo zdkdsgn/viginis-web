@@ -879,14 +879,14 @@ a{ color: inherit; text-decoration: none; }
 /* ---------- groups carousel ---------- */
 .gc .rail-carousel{ margin: 0 -14px; }
 .gc-track{
-  display: flex; gap: 12px; overflow-x: auto;
+  display: flex; gap: 14px; overflow-x: auto;
   scroll-snap-type: x mandatory; scrollbar-width: none;
   padding: 2px 14px 10px; scroll-padding-left: 14px;
 }
 .gc-track::-webkit-scrollbar{ display: none; }
 .gc-card{
-  position: relative; flex: 0 0 clamp(150px, 42%, 232px);
-  aspect-ratio: 4/5; scroll-snap-align: start;
+  position: relative; flex: 0 0 calc((100% - 14px) / 2);
+  aspect-ratio: 6/5; scroll-snap-align: start;
   display: flex; flex-direction: column;
   padding: 14px; border: none; border-radius: 20px; overflow: hidden;
   color: #fff; text-align: left; cursor: pointer;
@@ -910,7 +910,7 @@ a{ color: inherit; text-decoration: none; }
   font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
 }
 .gc-info{ position: relative; margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
-.gc-info strong{ font-size: 1.08rem; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,.25); }
+.gc-info strong{ font-size: 1.18rem; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .gc-meta{ display: flex; align-items: center; gap: 8px; font-size: .76rem; font-weight: 600; text-shadow: 0 1px 4px rgba(0,0,0,.25); }
 .gc-avatars{ display: flex; }
 .gc-avatars i{
@@ -927,3 +927,7 @@ a{ color: inherit; text-decoration: none; }
 .gc-dots{ margin-top: 2px; }
 @media (hover: none){ .gc .rail-arrow{ display: none; } }
 @media (prefers-reduced-motion: reduce){ .gc-card{ transition: none; } .gc-card:hover{ transform: none; } }
+@media (max-width: 640px){
+  .gc-card{ aspect-ratio: 4/5; }
+  .gc-info strong{ font-size: 1.02rem; }
+}
