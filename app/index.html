@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=18">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
@@ -83,13 +83,31 @@
     </div>
   </header>
 
-  <aside class="home-side" aria-label="Recepty a mapa">
-    <section class="rail-card" aria-label="Recepty">
-      <div class="rail-head">
+  <div class="app-layout">
+  <aside class="widget-rail" id="widgetRail" aria-label="Widgety">
+    <div class="rail-toolbar">
+      <span class="rail-toolbar-title">Widgety</span>
+      <span class="rail-toolbar-actions">
+        <button type="button" class="rail-tool" id="widgetReset" hidden>Výchozí</button>
+        <button type="button" class="rail-tool rail-tool--primary" id="widgetEdit" aria-pressed="false">Upravit</button>
+      </span>
+    </div>
+    <p class="rail-status" id="widgetStatus" role="status" aria-live="polite"></p>
+
+    <article class="widget" data-widget="recipes" data-size="m" aria-label="Recepty">
+      <header class="widget-head">
+        <button type="button" class="widget-grip" aria-label="Přesunout widget Recepty (šipky nahoru a dolů)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
         <h2>Recepty</h2>
         <button type="button" class="rail-more" data-goto="recipes">Vše</button>
+        <button type="button" class="widget-remove" aria-label="Skrýt widget Recepty"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="widget-sizes" role="group" aria-label="Velikost widgetu Recepty">
+        <button type="button" data-size="s" aria-pressed="false">S</button>
+        <button type="button" data-size="m" aria-pressed="false">M</button>
+        <button type="button" data-size="l" aria-pressed="false">L</button>
       </div>
-      <div class="rail-carousel">
+      <div class="widget-body">
+        <div class="rail-carousel">
         <div class="rail-track" id="railTrack">
           <button type="button" class="rail-slide" data-goto="recipes">
             <img src="../assets/img/jidlo_8.webp" alt="" loading="lazy">
@@ -116,21 +134,81 @@
         <button type="button" class="rail-arrow rail-next" id="railNext" aria-label="Další recept"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
       <div class="rail-dots" id="railDots" aria-hidden="true"></div>
-    </section>
-
-    <section class="rail-card" aria-label="Kde jíme">
-      <div class="rail-head">
+      </div>
+    </article>
+    <article class="widget" data-widget="map" data-size="m" aria-label="Kde jíme">
+      <header class="widget-head">
+        <button type="button" class="widget-grip" aria-label="Přesunout widget Kde jíme (šipky nahoru a dolů)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
         <h2>Kde jíme</h2>
         <button type="button" class="rail-more" data-goto="map">Otevřít</button>
+        <button type="button" class="widget-remove" aria-label="Skrýt widget Kde jíme"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="widget-sizes" role="group" aria-label="Velikost widgetu Kde jíme">
+        <button type="button" data-size="s" aria-pressed="false">S</button>
+        <button type="button" data-size="m" aria-pressed="false">M</button>
+        <button type="button" data-size="l" aria-pressed="false">L</button>
       </div>
-      <button type="button" class="rail-map" data-goto="map" aria-label="Otevřít mapu Kde jíme">
+      <div class="widget-body">
+        <button type="button" class="rail-map" data-goto="map" aria-label="Otevřít mapu Kde jíme">
         <span class="map-mock map-mock--mini">
-          <span class="map-pin" style="top:14%; left:10%;"><img src="../assets/img/jidlo_1.webp" alt=""><span class="map-pin-badge">FV</span></span>
+          <span class="map-pin map-pin--a" style="top:14%; left:10%;"><img src="../assets/img/jidlo_1.webp" alt=""><span class="map-pin-badge">FV</span></span>
           <span class="map-pin map-pin--lg" style="top:38%; left:42%;"><img src="../assets/img/jidlo_3.webp" alt=""><span class="map-pin-badge map-pin-badge--count">26</span></span>
-          <span class="map-pin" style="top:64%; left:12%;"><img src="../assets/img/jidlo_9.webp" alt=""><span class="map-pin-badge map-pin-badge--count">2</span></span>
+          <span class="map-pin map-pin--d" style="top:16%; left:62%;"><img src="../assets/img/jidlo_8.webp" alt=""><span class="map-pin-badge map-pin-badge--count">6</span></span>
+          <span class="map-pin map-pin--c" style="top:64%; left:12%;"><img src="../assets/img/jidlo_9.webp" alt=""><span class="map-pin-badge map-pin-badge--count">2</span></span>
         </span>
       </button>
-    </section>
+      </div>
+    </article>
+    <article class="widget" data-widget="shopping" data-size="m" hidden aria-label="Nákupní seznam">
+      <header class="widget-head">
+        <button type="button" class="widget-grip" aria-label="Přesunout widget Nákupní seznam (šipky nahoru a dolů)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+        <h2>Nákupní seznam</h2>
+        <button type="button" class="rail-more" data-goto="shopping">Otevřít</button>
+        <button type="button" class="widget-remove" aria-label="Skrýt widget Nákupní seznam"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="widget-sizes" role="group" aria-label="Velikost widgetu Nákupní seznam">
+        <button type="button" data-size="s" aria-pressed="false">S</button>
+        <button type="button" data-size="m" aria-pressed="false">M</button>
+        <button type="button" data-size="l" aria-pressed="false">L</button>
+      </div>
+      <div class="widget-body">
+        <button type="button" class="shop-card" data-goto="shopping" aria-label="Otevřít nákupní seznam">
+          <span class="shop-meta"><strong>2 z 5</strong> hotovo</span>
+          <span class="shop-progress"><i style="width:40%"></i></span>
+          <span class="shop-item"><span>Losos</span><small>1 ks</small></span>
+          <span class="shop-item"><span>Špenát</span><small>150 g</small></span>
+          <span class="shop-item"><span>Cherry rajčata</span><small>250 g</small></span>
+          <span class="shop-item is-done"><span>Citrón</span><small>2 ks</small></span>
+          <span class="shop-item is-done"><span>Feta</span><small>200 g</small></span>
+        </button>
+      </div>
+    </article>
+    <article class="widget" data-widget="groups" data-size="m" hidden aria-label="Skupiny">
+      <header class="widget-head">
+        <button type="button" class="widget-grip" aria-label="Přesunout widget Skupiny (šipky nahoru a dolů)"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg></button>
+        <h2>Skupiny</h2>
+        <button type="button" class="rail-more" data-goto="groups">Vše</button>
+        <button type="button" class="widget-remove" aria-label="Skrýt widget Skupiny"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="widget-sizes" role="group" aria-label="Velikost widgetu Skupiny">
+        <button type="button" data-size="s" aria-pressed="false">S</button>
+        <button type="button" data-size="m" aria-pressed="false">M</button>
+        <button type="button" data-size="l" aria-pressed="false">L</button>
+      </div>
+      <div class="widget-body">
+        <button type="button" class="wg-card" data-goto="groups" aria-label="Otevřít skupiny">
+          <span class="wg-row"><i class="wg-dot" style="--from:#8FD3C7; --to:#4E9F8C;"></i><span class="wg-text"><strong>Dubeč crew</strong><small>12 členů · 3 nové</small></span></span>
+          <span class="wg-row"><i class="wg-dot" style="--from:#1F3A5F; --to:#0E1F33;"></i><span class="wg-text"><strong>Vývoj</strong><small>8 členů</small></span></span>
+          <span class="wg-row"><i class="wg-dot" style="--from:#F6C177; --to:#E4572E;"></i><span class="wg-text"><strong>Pečeme spolu</strong><small>27 členů · 1 nový</small></span></span>
+          <span class="wg-row"><i class="wg-dot" style="--from:#B8A1E3; --to:#6B4BA3;"></i><span class="wg-text"><strong>Snídaně klub</strong><small>15 členů</small></span></span>
+        </button>
+      </div>
+    </article>
+
+    <div class="widget-tray" id="widgetTray" hidden>
+      <p class="widget-tray-label">Přidat widget</p>
+      <div class="widget-tray-list" id="widgetTrayList"></div>
+    </div>
   </aside>
 
   <main class="app-main">
@@ -249,29 +327,39 @@
 
       <label class="search-bar">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M20 20l-3.2-3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <input type="text" placeholder="Hledat">
+        <input type="text" placeholder="Hledat skupiny">
       </label>
 
-      <div class="group-grid">
-        <a href="#" class="group-card" style="--from:#8FD3C7; --to:#4E9F8C;">
-          <span class="group-card-title">Dubeč crew</span>
-        </a>
-        <a href="#" class="group-card" style="--from:#1F3A5F; --to:#0E1F33;">
-          <span class="group-card-title">Vývoj</span>
-        </a>
-      </div>
+      <section class="panel" aria-label="Moje skupiny">
+        <div class="panel-head"><h2>Moje skupiny</h2><a href="#" class="section-title-link">Zobrazit vše</a></div>
+        <div class="group-grid">
+          <a href="#" class="group-card" style="--from:#8FD3C7; --to:#4E9F8C;"><span class="group-card-title">Dubeč crew<small>12 členů</small></span></a>
+          <a href="#" class="group-card" style="--from:#1F3A5F; --to:#0E1F33;"><span class="group-card-title">Vývoj<small>8 členů</small></span></a>
+          <a href="#" class="group-card" style="--from:#F6C177; --to:#E4572E;"><span class="group-card-title">Pečeme spolu<small>27 členů</small></span></a>
+          <a href="#" class="group-card" style="--from:#B8A1E3; --to:#6B4BA3;"><span class="group-card-title">Snídaně klub<small>15 členů</small></span></a>
+        </div>
+      </section>
 
-      <h2 class="section-title">Návrhy skupin<a href="#" class="section-title-link">Zobrazit vše</a></h2>
-      <div class="suggest-card" style="--from:#7FC1F0; --to:#F2C94C;">
-        <div class="suggest-card-body">
-          <strong>Adamová jablka</strong>
-          <span><svg viewBox="0 0 24 24" fill="none" width="14" height="14"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 20c0-4 3.4-6.8 7.5-6.8s7.5 2.8 7.5 6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg> 3 členové</span>
-        </div>
-        <div class="suggest-card-actions">
-          <button type="button" class="btn btn-secondary btn-xs">Sledovat</button>
-          <button type="button" class="btn btn-primary btn-xs">Žádost</button>
-        </div>
-      </div>
+      <section class="panel" aria-label="Návrhy skupin">
+        <div class="panel-head"><h2>Návrhy skupin</h2><a href="#" class="section-title-link">Zobrazit vše</a></div>
+        <ul class="suggest-list">
+          <li class="suggest-row">
+            <i class="suggest-avatar" style="--from:#7FC1F0; --to:#F2C94C;"></i>
+            <div class="suggest-info"><strong>Adamová jablka</strong><span>3 členové</span></div>
+            <div class="suggest-actions"><button type="button" class="btn btn-secondary btn-xs">Sledovat</button><button type="button" class="btn btn-primary btn-xs">Žádost</button></div>
+          </li>
+          <li class="suggest-row">
+            <i class="suggest-avatar" style="--from:#A8E063; --to:#56AB2F;"></i>
+            <div class="suggest-info"><strong>Zdravé obědy</strong><span>41 členů</span></div>
+            <div class="suggest-actions"><button type="button" class="btn btn-secondary btn-xs">Sledovat</button><button type="button" class="btn btn-primary btn-xs">Žádost</button></div>
+          </li>
+          <li class="suggest-row">
+            <i class="suggest-avatar" style="--from:#FF9A8B; --to:#FF6A88;"></i>
+            <div class="suggest-info"><strong>Street food Praha</strong><span>18 členů</span></div>
+            <div class="suggest-actions"><button type="button" class="btn btn-secondary btn-xs">Sledovat</button><button type="button" class="btn btn-primary btn-xs">Žádost</button></div>
+          </li>
+        </ul>
+      </section>
 
     </section>
 
@@ -343,7 +431,8 @@
         </button>
       </div>
 
-      <h2 class="section-title">Recepty podle kategorií</h2>
+      <section class="panel" aria-label="Recepty podle kategorií">
+        <div class="panel-head"><h2>Recepty podle kategorií</h2></div>
       <div class="cat-grid">
         <a href="#" class="cat-card">
           <img src="../assets/img/jidlo_9.webp" alt="">
@@ -362,6 +451,7 @@
           <span class="cat-card-label">Večeře<small>276</small></span>
         </a>
       </div>
+      </section>
 
     </section>
 
@@ -394,7 +484,8 @@
 
     <!-- ---------------- KATEGORIE ---------------- -->
     <section class="app-view" data-view="categories" aria-label="Kategorie">
-      <h2 class="section-title">Všechny kategorie</h2>
+      <section class="panel" aria-label="Všechny kategorie">
+        <div class="panel-head"><h2>Všechny kategorie</h2></div>
       <div class="cat-grid">
         <a href="#" class="cat-card"><img src="../assets/img/jidlo_9.webp" alt=""><span class="cat-card-label">Svačina<small>4</small></span></a>
         <a href="#" class="cat-card"><img src="../assets/img/jidlo_7.webp" alt=""><span class="cat-card-label">Snídaně<small>224</small></span></a>
@@ -403,6 +494,7 @@
         <a href="#" class="cat-card"><img src="../assets/img/jidlo_2.webp" alt=""><span class="cat-card-label">Street food<small>92</small></span></a>
         <a href="#" class="cat-card"><img src="../assets/img/jidlo_6.webp" alt=""><span class="cat-card-label">Saláty<small>140</small></span></a>
       </div>
+      </section>
     </section>
 
     <!-- ---------------- NÁKUPNÍ SEZNAM ---------------- -->
@@ -429,6 +521,7 @@
     </section>
 
   </main>
+  </div>
 
   <!-- ---------------- MORE DRAWER ---------------- -->
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
@@ -496,6 +589,6 @@
 
 </div>
 
-<script src="main.js?v=9"></script>
+<script src="main.js?v=10"></script>
 </body>
 </html>

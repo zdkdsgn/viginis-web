@@ -76,6 +76,7 @@
 
   document.querySelectorAll("[data-goto]").forEach((tile) => {
     tile.addEventListener("click", () => {
+      if (tile.closest(".widget-rail.is-editing")) return;
       setActiveView(tile.dataset.goto);
       closeDrawer();
     });
@@ -127,8 +128,185 @@
     if (railBusy) { railSettleSoon(150); return; }
     railSync();
   }, { passive: true });
-  window.addEventListener("resize", () => railGoTo(railIndex));
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      const w = railTrack.clientWidth;
+      if (w) railTrack.scrollTo({ left: railIndex * w, behavior: "auto" });
+    }).observe(railTrack);
+  }
   setRailUi(0);
+
+
+  // ---------- widget rail: sizes, order, visibility (saved in localStorage) ----------
+  const rail = document.getElementById("widgetRail");
+  const editBtn = document.getElementById("widgetEdit");
+  const resetBtn = document.getElementById("widgetReset");
+  const tray = document.getElementById("widgetTray");
+  const trayList = document.getElementById("widgetTrayList");
+  const railStatus = document.getElementById("widgetStatus");
+  const WIDGET_KEY = "viginis.widgets.v1";
+  const SIZES = ["s", "m", "l"];
+  const widgetEls = {};
+  rail.querySelectorAll(".widget").forEach((el) => { widgetEls[el.dataset.widget] = el; });
+  const WIDGET_IDS = Object.keys(widgetEls);
+  const WIDGET_TITLES = {};
+  WIDGET_IDS.forEach((id) => { WIDGET_TITLES[id] = widgetEls[id].getAttribute("aria-label"); });
+
+  function defaultLayout() {
+    return {
+      order: ["recipes", "map", "shopping", "groups"].filter((id) => WIDGET_IDS.includes(id)),
+      sizes: Object.fromEntries(WIDGET_IDS.map((id) => [id, "m"])),
+      hidden: ["shopping", "groups"].filter((id) => WIDGET_IDS.includes(id)),
+    };
+  }
+  function loadLayout() {
+    const base = defaultLayout();
+    try {
+      const saved = JSON.parse(localStorage.getItem(WIDGET_KEY));
+      if (!saved || !Array.isArray(saved.order)) return base;
+      const order = saved.order.filter((id, i, a) => WIDGET_IDS.includes(id) && a.indexOf(id) === i);
+      WIDGET_IDS.forEach((id) => { if (!order.includes(id)) order.push(id); });
+      const sizes = { ...base.sizes };
+      WIDGET_IDS.forEach((id) => { if (saved.sizes && SIZES.includes(saved.sizes[id])) sizes[id] = saved.sizes[id]; });
+      const hidden = Array.isArray(saved.hidden) ? saved.hidden.filter((id) => WIDGET_IDS.includes(id)) : base.hidden;
+      return { order, sizes, hidden };
+    } catch (e) {
+      return base;
+    }
+  }
+  function saveLayout() {
+    try { localStorage.setItem(WIDGET_KEY, JSON.stringify(layout)); } catch (e) { /* storage unavailable */ }
+  }
+  let layout = loadLayout();
+
+  function say(msg) { railStatus.textContent = msg; }
+  function visibleIds() { return layout.order.filter((id) => !layout.hidden.includes(id)); }
+
+  function renderTray() {
+    trayList.textContent = "";
+    if (!layout.hidden.length) {
+      const p = document.createElement("p");
+      p.className = "widget-tray-empty";
+      p.textContent = "Všechny widgety jsou zobrazené.";
+      trayList.appendChild(p);
+      return;
+    }
+    layout.hidden.forEach((id) => {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "widget-tray-chip";
+      chip.dataset.add = id;
+      chip.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+      chip.appendChild(document.createTextNode(WIDGET_TITLES[id]));
+      trayList.appendChild(chip);
+    });
+  }
+  function applyLayout() {
+    layout.order.forEach((id) => {
+      const el = widgetEls[id];
+      rail.insertBefore(el, tray);
+      el.hidden = layout.hidden.includes(id);
+      el.dataset.size = layout.sizes[id];
+      el.querySelectorAll(".widget-sizes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.size === layout.sizes[id])));
+    });
+    renderTray();
+  }
+
+  function setEditing(on) {
+    rail.classList.toggle("is-editing", on);
+    editBtn.setAttribute("aria-pressed", String(on));
+    editBtn.textContent = on ? "Hotovo" : "Upravit";
+    resetBtn.hidden = !on;
+    tray.hidden = !on;
+    WIDGET_IDS.forEach((id) => { widgetEls[id].draggable = on; });
+    say(on ? "Úprava widgetů zapnuta" : "Úprava widgetů dokončena");
+  }
+  editBtn.addEventListener("click", () => setEditing(!rail.classList.contains("is-editing")));
+  resetBtn.addEventListener("click", () => {
+    layout = defaultLayout();
+    applyLayout();
+    saveLayout();
+    say("Widgety obnoveny do výchozího stavu");
+  });
+
+  rail.addEventListener("click", (e) => {
+    const sizeBtn = e.target.closest(".widget-sizes button");
+    const removeBtn = e.target.closest(".widget-remove");
+    const addBtn = e.target.closest(".widget-tray-chip");
+    if (sizeBtn) {
+      const id = sizeBtn.closest(".widget").dataset.widget;
+      layout.sizes[id] = sizeBtn.dataset.size;
+      applyLayout();
+      saveLayout();
+      say(WIDGET_TITLES[id] + ": velikost " + sizeBtn.dataset.size.toUpperCase());
+    } else if (removeBtn) {
+      const id = removeBtn.closest(".widget").dataset.widget;
+      if (!layout.hidden.includes(id)) layout.hidden.push(id);
+      applyLayout();
+      saveLayout();
+      say(WIDGET_TITLES[id] + " skryt");
+    } else if (addBtn) {
+      const id = addBtn.dataset.add;
+      layout.hidden = layout.hidden.filter((h) => h !== id);
+      applyLayout();
+      saveLayout();
+      say(WIDGET_TITLES[id] + " přidán");
+    }
+  });
+
+  // keyboard reordering on the grip (Arrow Up / Down)
+  rail.addEventListener("keydown", (e) => {
+    const grip = e.target.closest(".widget-grip");
+    if (!grip || (e.key !== "ArrowUp" && e.key !== "ArrowDown")) return;
+    e.preventDefault();
+    const id = grip.closest(".widget").dataset.widget;
+    const vis = visibleIds();
+    const from = vis.indexOf(id);
+    const to = from + (e.key === "ArrowUp" ? -1 : 1);
+    if (to < 0 || to >= vis.length) return;
+    const a = layout.order.indexOf(id);
+    const b = layout.order.indexOf(vis[to]);
+    [layout.order[a], layout.order[b]] = [layout.order[b], layout.order[a]];
+    applyLayout();
+    saveLayout();
+    grip.focus();
+    say(WIDGET_TITLES[id] + ": pozice " + (to + 1) + " z " + vis.length);
+  });
+
+  // drag and drop reordering (reorders live while dragging)
+  let dragged = null;
+  rail.addEventListener("dragstart", (e) => {
+    const w = e.target.closest && e.target.closest(".widget");
+    if (!w || !rail.classList.contains("is-editing")) { e.preventDefault(); return; }
+    dragged = w;
+    w.classList.add("is-dragging");
+    if (e.dataTransfer) {
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/plain", w.dataset.widget);
+    }
+  });
+  rail.addEventListener("dragover", (e) => {
+    if (!dragged) return;
+    e.preventDefault();
+    const over = e.target.closest && e.target.closest(".widget:not([hidden])");
+    if (!over || over === dragged) return;
+    const r = over.getBoundingClientRect();
+    const after = e.clientY > r.top + r.height / 2;
+    rail.insertBefore(dragged, after ? over.nextElementSibling : over);
+  });
+  rail.addEventListener("drop", (e) => { if (dragged) e.preventDefault(); });
+  rail.addEventListener("dragend", () => {
+    if (!dragged) return;
+    dragged.classList.remove("is-dragging");
+    const domOrder = [...rail.querySelectorAll(".widget")].map((el) => el.dataset.widget);
+    layout.order = domOrder;
+    dragged = null;
+    applyLayout();
+    saveLayout();
+    say("Pořadí widgetů změněno");
+  });
+
+  applyLayout();
 
   // ---------- profile dropdown ----------
   const profileToggle = document.getElementById("profileToggle");
