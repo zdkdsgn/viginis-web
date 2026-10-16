@@ -83,59 +83,84 @@
   });
 
 
-  // ---------- home rail: recipe carousel ----------
-  const railTrack = document.getElementById("railTrack");
-  const railPrev = document.getElementById("railPrev");
-  const railNext = document.getElementById("railNext");
-  const railDots = document.getElementById("railDots");
-  const railSlides = railTrack.querySelectorAll(".rail-slide");
+  // ---------- carousels (recipe widget, groups) ----------
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  railSlides.forEach(() => {
-    const dot = document.createElement("span");
-    dot.className = "rail-dot";
-    railDots.appendChild(dot);
-  });
+  function initCarousel(root) {
+    const track = root.querySelector("[data-track]");
+    const prev = root.querySelector("[data-prev]");
+    const next = root.querySelector("[data-next]");
+    const dotsEl = root.querySelector("[data-dots]");
+    const slides = track.children;
+    let index = 0;
+    let pages = 0;
+    let busy = false;
+    let settle = null;
 
-  let railIndex = 0;
-  let railBusy = false;
-  let railSettle = null;
-  function setRailUi(idx) {
-    railDots.querySelectorAll(".rail-dot").forEach((d, i) => d.classList.toggle("is-active", i === idx));
-    railPrev.disabled = idx <= 0;
-    railNext.disabled = idx >= railSlides.length - 1;
-  }
-  function railSync() {
-    const w = railTrack.clientWidth;
-    if (!w) return;
-    railIndex = Math.round(railTrack.scrollLeft / w);
-    setRailUi(railIndex);
-  }
-  function railSettleSoon(ms) {
-    clearTimeout(railSettle);
-    railSettle = setTimeout(() => { railBusy = false; railSync(); }, ms);
-  }
-  function railGoTo(i) {
-    railIndex = Math.max(0, Math.min(railSlides.length - 1, i));
-    setRailUi(railIndex);
-    railBusy = true;
-    railSettleSoon(700);
-    railTrack.scrollTo({ left: railIndex * railTrack.clientWidth, behavior: reduceMotion ? "auto" : "smooth" });
-  }
-  railPrev.addEventListener("click", () => railGoTo(railIndex - 1));
-  railNext.addEventListener("click", () => railGoTo(railIndex + 1));
-  railTrack.addEventListener("scroll", () => {
-    if (railBusy) { railSettleSoon(150); return; }
-    railSync();
-  }, { passive: true });
-  if ("ResizeObserver" in window) {
-    new ResizeObserver(() => {
-      const w = railTrack.clientWidth;
-      if (w) railTrack.scrollTo({ left: railIndex * w, behavior: "auto" });
-    }).observe(railTrack);
-  }
-  setRailUi(0);
+    const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+    const step = () => {
+      if (slides.length > 1) {
+        const d = slides[1].offsetLeft - slides[0].offsetLeft;
+        if (d > 0) return d;
+      }
+      return track.clientWidth || 1;
+    };
+    const leftFor = (i) => (i >= pages - 1 ? maxScroll() : i * step());
 
+    function buildDots() {
+      const max = maxScroll();
+      const p = max <= 1 ? 1 : Math.ceil((max - 1) / step()) + 1;
+      if (p === pages) return;
+      pages = p;
+      dotsEl.textContent = "";
+      for (let i = 0; i < pages; i++) {
+        const dot = document.createElement("span");
+        dot.className = "rail-dot";
+        dotsEl.appendChild(dot);
+      }
+    }
+    function ui() {
+      dotsEl.querySelectorAll(".rail-dot").forEach((d, i) => d.classList.toggle("is-active", i === index));
+      prev.disabled = index <= 0;
+      next.disabled = index >= pages - 1;
+    }
+    function sync() {
+      if (!track.clientWidth) return;
+      buildDots();
+      index = track.scrollLeft >= maxScroll() - 2 ? pages - 1 : Math.min(pages - 1, Math.round(track.scrollLeft / step()));
+      ui();
+    }
+    function settleSoon(ms) {
+      clearTimeout(settle);
+      settle = setTimeout(() => { busy = false; sync(); }, ms);
+    }
+    function goTo(i) {
+      buildDots();
+      index = Math.max(0, Math.min(pages - 1, i));
+      ui();
+      busy = true;
+      settleSoon(700);
+      track.scrollTo({ left: leftFor(index), behavior: reduceMotion ? "auto" : "smooth" });
+    }
+
+    prev.addEventListener("click", () => goTo(index - 1));
+    next.addEventListener("click", () => goTo(index + 1));
+    track.addEventListener("scroll", () => {
+      if (busy) { settleSoon(150); return; }
+      sync();
+    }, { passive: true });
+    function refresh() {
+      if (!track.clientWidth) return;
+      buildDots();
+      index = Math.min(index, pages - 1);
+      track.scrollTo({ left: leftFor(index), behavior: "auto" });
+      ui();
+    }
+    root.carouselRefresh = refresh;
+    if ("ResizeObserver" in window) new ResizeObserver(refresh).observe(track);
+    ui();
+  }
+  document.querySelectorAll("[data-carousel]").forEach(initCarousel);
 
   // ---------- widget rail: sizes, order, visibility (saved in localStorage) ----------
   const rail = document.getElementById("widgetRail");
@@ -202,14 +227,17 @@
     });
   }
   function applyLayout() {
+    const domOrder = [...rail.querySelectorAll(".widget")].map((el) => el.dataset.widget);
+    const sameOrder = domOrder.join() === layout.order.join();
     layout.order.forEach((id) => {
       const el = widgetEls[id];
-      rail.insertBefore(el, tray);
+      if (!sameOrder) rail.insertBefore(el, tray);
       el.hidden = layout.hidden.includes(id);
       el.dataset.size = layout.sizes[id];
       el.querySelectorAll(".widget-sizes button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.size === layout.sizes[id])));
     });
     renderTray();
+    rail.querySelectorAll("[data-carousel]").forEach((c) => c.carouselRefresh && c.carouselRefresh());
   }
 
   function setEditing(on) {

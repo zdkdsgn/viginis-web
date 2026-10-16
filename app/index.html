@@ -6,7 +6,7 @@
 <title>viginis app — Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/img/logo-icon.svg">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
 
@@ -106,9 +106,9 @@
         <button type="button" data-size="m" aria-pressed="false">M</button>
         <button type="button" data-size="l" aria-pressed="false">L</button>
       </div>
-      <div class="widget-body">
+      <div class="widget-body" data-carousel>
         <div class="rail-carousel">
-        <div class="rail-track" id="railTrack">
+        <div class="rail-track" data-track>
           <button type="button" class="rail-slide" data-goto="recipes">
             <img src="../assets/img/jidlo_8.webp" alt="" loading="lazy">
             <span class="rail-slide-label"><strong>Kotlety s jablky</strong><small>320 kcal · 25 min</small></span>
@@ -130,10 +130,10 @@
             <span class="rail-slide-label"><strong>Klobásky s kaší</strong><small>520 kcal · 35 min</small></span>
           </button>
         </div>
-        <button type="button" class="rail-arrow rail-prev" id="railPrev" aria-label="Předchozí recept"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button type="button" class="rail-arrow rail-next" id="railNext" aria-label="Další recept"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="rail-arrow rail-prev" data-prev aria-label="Předchozí recept"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="rail-arrow rail-next" data-next aria-label="Další recept"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <div class="rail-dots" id="railDots" aria-hidden="true"></div>
+      <div class="rail-dots" data-dots aria-hidden="true"></div>
       </div>
     </article>
     <article class="widget" data-widget="map" data-size="m" aria-label="Kde jíme">
@@ -332,11 +332,44 @@
 
       <section class="panel" aria-label="Moje skupiny">
         <div class="panel-head"><h2>Moje skupiny</h2><a href="#" class="section-title-link">Zobrazit vše</a></div>
-        <div class="group-grid">
-          <a href="#" class="group-card" style="--from:#8FD3C7; --to:#4E9F8C;"><span class="group-card-title">Dubeč crew<small>12 členů</small></span></a>
-          <a href="#" class="group-card" style="--from:#1F3A5F; --to:#0E1F33;"><span class="group-card-title">Vývoj<small>8 členů</small></span></a>
-          <a href="#" class="group-card" style="--from:#F6C177; --to:#E4572E;"><span class="group-card-title">Pečeme spolu<small>27 členů</small></span></a>
-          <a href="#" class="group-card" style="--from:#B8A1E3; --to:#6B4BA3;"><span class="group-card-title">Snídaně klub<small>15 členů</small></span></a>
+        <div class="gc" data-carousel>
+          <div class="rail-carousel">
+            <div class="gc-track" data-track>
+          <button type="button" class="gc-card" data-soon style="--from:#8FD3C7; --to:#4E9F8C;" aria-label="Dubeč crew, 12 členů, 3 nové">
+            <span class="gc-badge">3 nové</span>
+            <span class="gc-mono" aria-hidden="true">D</span>
+            <span class="gc-info"><strong>Dubeč crew</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:150">FV</i><i style="--h:20">ZK</i><i style="--h:280">AO</i></span>12 členů</span></span>
+          </button>
+          <button type="button" class="gc-card" data-soon style="--from:#1F3A5F; --to:#0E1F33;" aria-label="Vývoj, 8 členů">
+            
+            <span class="gc-mono" aria-hidden="true">V</span>
+            <span class="gc-info"><strong>Vývoj</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:20">ZK</i><i style="--h:150">FV</i></span>8 členů</span></span>
+          </button>
+          <button type="button" class="gc-card" data-soon style="--from:#F6C177; --to:#E4572E;" aria-label="Pečeme spolu, 27 členů, 1 nový">
+            <span class="gc-badge">1 nový</span>
+            <span class="gc-mono" aria-hidden="true">P</span>
+            <span class="gc-info"><strong>Pečeme spolu</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:280">AO</i><i style="--h:20">ZK</i><i style="--h:150">FV</i></span>27 členů</span></span>
+          </button>
+          <button type="button" class="gc-card" data-soon style="--from:#B8A1E3; --to:#6B4BA3;" aria-label="Snídaně klub, 15 členů">
+            
+            <span class="gc-mono" aria-hidden="true">S</span>
+            <span class="gc-info"><strong>Snídaně klub</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:150">FV</i><i style="--h:20">ZK</i><i style="--h:280">AO</i></span>15 členů</span></span>
+          </button>
+          <button type="button" class="gc-card" data-soon style="--from:#9BE15D; --to:#2E9E6B;" aria-label="Zelená kuchyně, 33 členů, 5 nových">
+            <span class="gc-badge">5 nových</span>
+            <span class="gc-mono" aria-hidden="true">Z</span>
+            <span class="gc-info"><strong>Zelená kuchyně</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:150">FV</i><i style="--h:280">AO</i><i style="--h:20">ZK</i></span>33 členů</span></span>
+          </button>
+          <button type="button" class="gc-card" data-soon style="--from:#FFB88C; --to:#DE6262;" aria-label="Víkendový brunch, 19 členů">
+            
+            <span class="gc-mono" aria-hidden="true">B</span>
+            <span class="gc-info"><strong>Víkendový brunch</strong><span class="gc-meta"><span class="gc-avatars" aria-hidden="true"><i style="--h:280">AO</i><i style="--h:150">FV</i></span>19 členů</span></span>
+          </button>
+            </div>
+            <button type="button" class="rail-arrow rail-prev" data-prev aria-label="Předchozí skupiny"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="rail-arrow rail-next" data-next aria-label="Další skupiny"><svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="rail-dots gc-dots" data-dots aria-hidden="true"></div>
         </div>
       </section>
 
@@ -589,6 +622,6 @@
 
 </div>
 
-<script src="main.js?v=10"></script>
+<script src="main.js?v=13"></script>
 </body>
 </html>
